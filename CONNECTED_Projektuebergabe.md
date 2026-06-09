@@ -127,7 +127,8 @@ Responsive breakpoints:
 - **Each event has a poster image** (uploaded via Sanity CMS later)
 - Use placeholder image until real posters are available
 - Layout per event: poster image on top or left, then date (large), event name, venue, lineup, ticket button
-- External ticket link (redirect)
+- **Ticket links go to ticket.io** — simple external redirect per event, no own ticket system
+- Each event in Sanity will have a ticket.io URL field
 - Lineup = members of the collective
 
 ### 3. Radio
