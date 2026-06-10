@@ -1,7 +1,6 @@
 import EventPoster from './EventPoster';
-import { client } from '@/sanity/lib/client';
 import { urlForImage } from '@/sanity/lib/image';
-import { EVENTS_QUERY, type SanityEvent } from '@/sanity/lib/queries';
+import { formatDay, getEvents, type SanityEvent } from '@/sanity/lib/queries';
 
 type EventStatus = 'available' | 'sold-out' | 'soon';
 
@@ -15,21 +14,6 @@ function getStatus(ev: SanityEvent): EventStatus {
   if (ev.soldOut) return 'sold-out';
   if (ev.ticketUrl) return 'available';
   return 'soon';
-}
-
-function formatDay(iso: string) {
-  const d = new Date(iso);
-  const day = d.toLocaleDateString('de-DE', { day: '2-digit' });
-  const month = d.toLocaleDateString('de-DE', { month: 'short' }).replace('.', '').toUpperCase();
-  return `${day} ${month}`;
-}
-
-async function getEvents(): Promise<SanityEvent[]> {
-  try {
-    return await client.fetch(EVENTS_QUERY, {}, { next: { revalidate: 60 } });
-  } catch {
-    return [];
-  }
 }
 
 export default async function Events() {

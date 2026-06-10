@@ -1,6 +1,11 @@
 import Link from 'next/link';
 
-export default function Hero() {
+import { formatDay, getEvents } from '@/sanity/lib/queries';
+
+export default async function Hero() {
+  const events = await getEvents();
+  const nextEvent = events[0];
+
   return (
     <section
       id="hero"
@@ -39,29 +44,37 @@ export default function Hero() {
         </p>
 
         {/* Next event card */}
-        <div className="flex flex-col items-start min-[960px]:items-end gap-[10px]">
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '9px',
-              letterSpacing: '2px',
-              textTransform: 'uppercase',
-              color: 'var(--muted)',
-            }}
-          >
-            Nächstes Event
-          </span>
-          <div className="hero-event-card">
-            <div className="hec-date">28 JUN</div>
-            <div className="hec-info">
-              <div className="hec-name">CONNECTED × Warehouse Night</div>
-              <div className="hec-sub">Industriehalle West · 22:00 – Open End</div>
+        {nextEvent && (
+          <div className="flex flex-col items-start min-[960px]:items-end gap-[10px]">
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '9px',
+                letterSpacing: '2px',
+                textTransform: 'uppercase',
+                color: 'var(--muted)',
+              }}
+            >
+              Nächstes Event
+            </span>
+            <div className="hero-event-card">
+              <div className="hec-date">{formatDay(nextEvent.date)}</div>
+              <div className="hec-info">
+                <div className="hec-name">{nextEvent.title}</div>
+                <div className="hec-sub">
+                  {nextEvent.location} ·{' '}
+                  {new Date(nextEvent.date).toLocaleTimeString('de-DE', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </div>
+              </div>
+              <Link href="#events" className="btn btn--yellow shrink-0">
+                NEXT EVENT →
+              </Link>
             </div>
-            <Link href="#events" className="btn btn--yellow shrink-0">
-              NEXT EVENT →
-            </Link>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
