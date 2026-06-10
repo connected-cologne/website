@@ -1,68 +1,9 @@
+import EventPoster from './EventPoster';
+import { client } from '@/sanity/lib/client';
+import { urlForImage } from '@/sanity/lib/image';
+import { EVENTS_QUERY, type SanityEvent } from '@/sanity/lib/queries';
+
 type EventStatus = 'available' | 'sold-out' | 'soon';
-
-type CCEvent = {
-  id: string;
-  day: string;
-  year: string;
-  name: string;
-  venue: string;
-  time: string;
-  lineup: string;
-  status: EventStatus;
-  ticketUrl: string;
-  posterLetter: string;
-};
-
-const EVENTS: CCEvent[] = [
-  {
-    id: '1',
-    day: '28 JUN',
-    year: '2026',
-    name: 'CONNECTED × Warehouse Night',
-    venue: 'Industriehalle West, Köln',
-    time: '22:00 — Open End',
-    lineup: 'NINTEN · KISH · BOYSDOCRY · ZARI',
-    status: 'available',
-    ticketUrl: '#',
-    posterLetter: 'C',
-  },
-  {
-    id: '2',
-    day: '12 JUL',
-    year: '2026',
-    name: 'CONNECTED Open Air Vol. 4',
-    venue: 'Hafengelände Nord, Köln',
-    time: '16:00 — 06:00',
-    lineup: 'NINTEN · KISH · BOYSDOCRY · ZARI · SAO · FINNITO · AAADRICH',
-    status: 'available',
-    ticketUrl: '#',
-    posterLetter: 'O',
-  },
-  {
-    id: '3',
-    day: '02 AUG',
-    year: '2026',
-    name: 'B2B Series — EP. 07',
-    venue: 'Club Bunker, Köln',
-    time: '23:00 — 08:00',
-    lineup: 'NINTEN B2B KISH',
-    status: 'sold-out',
-    ticketUrl: '#',
-    posterLetter: 'B',
-  },
-  {
-    id: '4',
-    day: '19 SEP',
-    year: '2026',
-    name: 'CONNECTED Jahresabschluss 2026',
-    venue: 'Venue TBA',
-    time: '22:00 — Open End',
-    lineup: 'Alle Members · Special Guests TBA',
-    status: 'soon',
-    ticketUrl: '#',
-    posterLetter: 'J',
-  },
-];
 
 const STATUS_TAG: Record<EventStatus, { label: string; cls: string }> = {
   'available': { label: 'Verfügbar',  cls: 'tag tag--avail' },
@@ -70,7 +11,30 @@ const STATUS_TAG: Record<EventStatus, { label: string; cls: string }> = {
   'soon':      { label: 'Demnächst',  cls: 'tag'            },
 };
 
-export default function Events() {
+function getStatus(ev: SanityEvent): EventStatus {
+  if (ev.soldOut) return 'sold-out';
+  if (ev.ticketUrl) return 'available';
+  return 'soon';
+}
+
+function formatDay(iso: string) {
+  const d = new Date(iso);
+  const day = d.toLocaleDateString('de-DE', { day: '2-digit' });
+  const month = d.toLocaleDateString('de-DE', { month: 'short' }).replace('.', '').toUpperCase();
+  return `${day} ${month}`;
+}
+
+async function getEvents(): Promise<SanityEvent[]> {
+  try {
+    return await client.fetch(EVENTS_QUERY, {}, { next: { revalidate: 60 } });
+  } catch {
+    return [];
+  }
+}
+
+export default async function Events() {
+  const events = await getEvents();
+
   return (
     <section id="events" className="section">
       {/* Section header */}
@@ -84,38 +48,45 @@ export default function Events() {
 
       {/* Event list */}
       <div>
-        {EVENTS.map((ev, i) => {
-          const tag = STATUS_TAG[ev.status];
+        {events.map((ev, i) => {
+          const status = getStatus(ev);
+          const tag = STATUS_TAG[status];
           const revealDelay = i === 0 ? '' : i === 1 ? ' reveal-d1' : i === 2 ? ' reveal-d2' : ' reveal-d3';
+          const posterUrl = ev.poster
+            ? urlForImage(ev.poster).width(480).height(720).fit('crop').url()
+            : undefined;
+          const lineup = (ev.lineup ?? []).join(' · ');
 
           return (
-            <article key={ev.id} className={`event-row reveal${revealDelay}`}>
-              {/* Poster placeholder */}
-              <div className="ev-poster" aria-hidden="true">
-                <span className="ev-poster-letter">{ev.posterLetter}</span>
-              </div>
+            <article key={ev._id} className={`event-row reveal${revealDelay}`}>
+              {/* Poster (click to open lightbox) */}
+              <EventPoster
+                src={posterUrl}
+                alt={ev.title}
+                posterLetter={ev.title.charAt(0)}
+              />
 
-              {/* Date */}
+              {/* Date + location */}
               <div className="ev-date">
-                {ev.day}<br />{ev.year}
+                {formatDay(ev.date)}
+                <span className="ev-location">{ev.location}</span>
               </div>
 
               {/* Name + lineup */}
               <div className="ev-info">
-                <div className="ev-name">{ev.name}</div>
-                <div className="ev-lineup">{ev.lineup}</div>
+                <div className="ev-name">{ev.title}</div>
+                {lineup && <div className="ev-lineup">{lineup}</div>}
               </div>
 
               {/* Venue + time (desktop only) */}
               <div className="ev-venue-time">
-                <span className="ev-venue">{ev.venue}</span>
-                <span className="ev-time">{ev.time}</span>
+                <span className="ev-venue">{ev.location}</span>
               </div>
 
               {/* Status tag + ticket button */}
               <div className="ev-actions">
                 <span className={tag.cls}>{tag.label}</span>
-                {ev.status === 'available' && (
+                {status === 'available' && ev.ticketUrl && (
                   <a
                     href={ev.ticketUrl}
                     target="_blank"
@@ -129,6 +100,12 @@ export default function Events() {
             </article>
           );
         })}
+
+        {events.length === 0 && (
+          <p className="label label--muted reveal" style={{ padding: '20px 0' }}>
+            Aktuell stehen keine Events fest — schaut bald wieder vorbei.
+          </p>
+        )}
       </div>
     </section>
   );
