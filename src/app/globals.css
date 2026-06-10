@@ -745,7 +745,7 @@ body::before {
 .artists-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2px;
+  gap: 16px;
 }
 
 @media (min-width: 600px) {

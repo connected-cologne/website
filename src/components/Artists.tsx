@@ -1,92 +1,80 @@
-import ArtistsGrid, { type Artist } from './ArtistsGrid';
+import ArtistCard, { type ArtistCardProps } from './ArtistCard/ArtistCard';
 
-const ARTISTS: Artist[] = [
+const ARTISTS: ArtistCardProps[] = [
   {
-    id: 'ninten',
     name: 'NINTEN',
-    letter: 'N',
-    genre: 'Techno · Industrial',
+    genres: ['Techno', 'Industrial'],
+    image: '/images/artists/ninten.jpg',
     bio: 'Gründungsmitglied von CONNECTED. Bekannt für treibende Sets zwischen Industrial und Melodic Techno. Regelmäßig auf den CONNECTED-Events vertreten.',
-    socials: [
-      { label: 'Instagram',  url: '#' },
-      { label: 'SoundCloud', url: '#' },
-      { label: 'RA',         url: '#' },
-    ],
-    pressKit: true,
+    links: {
+      instagram: '#',
+      soundcloud: '#',
+      presskit: '#',
+    },
   },
   {
-    id: 'kish',
     name: 'KISH',
-    letter: 'K',
-    genre: 'Dark Techno · Groove',
+    genres: ['Dark Techno', 'Groove'],
+    image: '/images/artists/kish.jpg',
     bio: 'KISH steht für hypnotische Grooves und eine dunkle, intensive Energie auf dem Dancefloor. Sein Sound ist tief verwurzelt in der Kölner Club-Kultur.',
-    socials: [
-      { label: 'Instagram',  url: '#' },
-      { label: 'SoundCloud', url: '#' },
-    ],
-    pressKit: false,
+    links: {
+      instagram: '#',
+      soundcloud: '#',
+    },
   },
   {
-    id: 'boysdocry',
     name: 'BOYSDOCRY',
-    letter: 'B',
-    genre: 'Techno · Breaks',
+    genres: ['Techno', 'Breaks'],
+    image: '/images/artists/boysdocry.jpg',
     bio: 'BOYSDOCRY verbindet Techno mit Breaks und schafft eine unverwechselbare, energiegeladene Atmosphäre — roh, ehrlich, direkt.',
-    socials: [
-      { label: 'Instagram',  url: '#' },
-      { label: 'SoundCloud', url: '#' },
-      { label: 'Mixcloud',   url: '#' },
-    ],
-    pressKit: false,
+    links: {
+      instagram: '#',
+      soundcloud: '#',
+      youtube: '#',
+    },
   },
   {
-    id: 'zari',
     name: 'ZARI',
-    letter: 'Z',
-    genre: 'Acid · Rave',
+    genres: ['Acid', 'Rave'],
+    image: '/images/zari_picture.JPG',
     bio: 'Inspiriert von der frühen Rave-Kultur der 90er. ZARI lebt und liebt Acid — jedes Set eine Zeitreise in die Ursprünge elektronischer Musik.',
-    socials: [
-      { label: 'Instagram',  url: '#' },
-      { label: 'SoundCloud', url: '#' },
-    ],
-    pressKit: true,
+    links: {
+      instagram: '#',
+      soundcloud: '#',
+      presskit: '#',
+    },
   },
   {
-    id: 'sao',
     name: 'SAO',
-    letter: 'S',
-    genre: 'Melodic · Progressive',
+    genres: ['Melodic', 'Progressive'],
+    image: '/images/artists/sao.jpg',
     bio: 'SAO bringt Melodie und Emotion in den Techno. Seine Sets bauen Spannungsbögen auf, die den Dancefloor in eine andere Dimension transportieren.',
-    socials: [
-      { label: 'Instagram',  url: '#' },
-      { label: 'SoundCloud', url: '#' },
-    ],
-    pressKit: false,
+    links: {
+      instagram: '#',
+      soundcloud: '#',
+    },
   },
   {
-    id: 'finnito',
     name: 'FINNITO',
-    letter: 'F',
-    genre: 'Techno · Minimal',
+    genres: ['Techno', 'Minimal'],
+    image: '/images/artists/finnito.jpg',
     bio: 'Weniger ist mehr — FINNITOs minimalistischer Ansatz schafft Raum und Tiefe. Präzise, reduziert, mit einem untrüglichen Gespür für den richtigen Moment.',
-    socials: [
-      { label: 'Instagram',  url: '#' },
-      { label: 'SoundCloud', url: '#' },
-    ],
-    pressKit: false,
+    links: {
+      instagram: '#',
+      soundcloud: '#',
+    },
   },
   {
-    id: 'aaadrich',
     name: 'AAADRICH',
-    letter: 'A',
-    genre: 'Techno · Experimental',
+    genres: ['Techno', 'Experimental'],
+    image: '/images/artists/aaadrich.jpg',
     bio: 'AAADRICH denkt Techno neu — experimentell, grenzüberschreitend und immer auf der Suche nach dem unerwarteten Moment, der alles verändert.',
-    socials: [
-      { label: 'Instagram',  url: '#' },
-      { label: 'SoundCloud', url: '#' },
-      { label: 'RA',         url: '#' },
-    ],
-    pressKit: true,
+    links: {
+      instagram: '#',
+      soundcloud: '#',
+      youtube: '#',
+      presskit: '#',
+    },
   },
 ];
 
@@ -101,7 +89,16 @@ export default function Artists() {
         <span className="label label--muted artists-hint">Hover für Info</span>
       </div>
 
-      <ArtistsGrid artists={ARTISTS} />
+      <div className="artists-grid">
+        {ARTISTS.map((artist, i) => {
+          const delay = i % 4 === 1 ? ' reveal-d1' : i % 4 === 2 ? ' reveal-d2' : i % 4 === 3 ? ' reveal-d3' : '';
+          return (
+            <div key={artist.name} className={`reveal${delay}`}>
+              <ArtistCard {...artist} />
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }

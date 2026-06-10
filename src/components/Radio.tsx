@@ -1,30 +1,85 @@
+// UPDATE THIS — replace with most popular / latest video ID to feature
+const FEATURED_VIDEO_ID = 'HkQuKC7iyrw';
+
 const FEATURED = {
-  num:    'CONNECTED RADIO — EP. 014',
-  title:  'NINTEN',
-  sub:    'Studio Set',
-  meta:   'Juni 2026 · 1 Std. 42 Min.',
-  desc:   'NINTEN nimmt uns mit auf eine Reise durch Industrial Techno und Dark Ambient. Aufgenommen im Studio in Köln. Das bisher härteste Set der Radio-Serie.',
-  tags:   [
-    { label: 'Techno',    cls: 'tag tag--purple' },
-    { label: 'Industrial', cls: 'tag tag--purple' },
-    { label: 'Studio',     cls: 'tag' },
-    { label: 'Neu',        cls: 'tag tag--avail' },
+  num:  'CONNECTED RADIO',
+  title: 'Featured Set',
+  sub:  'Studio Set',
+  desc: 'Schaut direkt rein — das aktuell ausgewählte Set von CONNECTED Radio. Mehr Sets gibt es im Archiv und auf unserem YouTube-Kanal.',
+  tags: [
+    { label: 'Techno',  cls: 'tag tag--purple' },
+    { label: 'Studio',  cls: 'tag' },
+    { label: 'Neu',     cls: 'tag tag--avail' },
   ],
-  youtubeUrl: 'https://www.youtube.com/@ConnectedCologne',
+  youtubeUrl: `https://www.youtube.com/watch?v=${FEATURED_VIDEO_ID}`,
 };
 
-const ARCHIVE = [
-  { num: 'EP. 013', title: 'KISH — Late Night Session',      meta: 'Mai 2026 · 2h 01m · Dark Techno' },
-  { num: 'EP. 012', title: 'BOYSDOCRY — Warehouse Mix',      meta: 'Apr. 2026 · 3h 15m · Techno / Industrial' },
-  { num: 'EP. 011', title: 'ZARI — Acid Sessions Vol. 2',    meta: 'März 2026 · 1h 28m · Acid / Rave' },
-  { num: 'EP. 010', title: 'SAO — Open Air Closing Set',     meta: 'Feb. 2026 · 4h 00m · Techno' },
-  { num: 'EP. 009', title: 'FINNITO × AAADRICH — B2B',       meta: 'Jan. 2026 · 2h 45m · Hybrid' },
-  { num: 'EP. 008', title: 'NINTEN — Year Mix 2025',         meta: 'Dez. 2025 · 3h 30m · Techno' },
-];
-
+const YT_CHANNEL_ID = 'UCctBM-2D7wr2zrvFl_JenCQ';
 const YT_CHANNEL = 'https://www.youtube.com/@ConnectedCologne';
+const YT_FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`;
 
-export default function Radio() {
+type RadioVideo = {
+  id: string;
+  title: string;
+  thumbnail: string;
+  published: string;
+};
+
+function decodeEntities(str: string) {
+  return str
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+function formatDate(iso: string) {
+  if (!iso) return '';
+  try {
+    return new Date(iso).toLocaleDateString('de-DE', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  } catch {
+    return '';
+  }
+}
+
+// Fetches the channel's RSS feed and returns the latest videos.
+// No API key required.
+async function getLatestVideos(): Promise<RadioVideo[]> {
+  try {
+    const res = await fetch(YT_FEED_URL, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const xml = await res.text();
+
+    const entries = xml.match(/<entry>[\s\S]*?<\/entry>/g) ?? [];
+
+    return entries.slice(0, 5).map((entry) => {
+      const id = entry.match(/<yt:videoId>(.*?)<\/yt:videoId>/)?.[1] ?? '';
+      const title = entry.match(/<media:title>(.*?)<\/media:title>/)?.[1] ?? '';
+      const thumbnail =
+        entry.match(/<media:thumbnail url="(.*?)"/)?.[1] ??
+        `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+      const published = entry.match(/<published>(.*?)<\/published>/)?.[1] ?? '';
+
+      return {
+        id,
+        title: decodeEntities(title),
+        thumbnail,
+        published,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
+export default async function Radio() {
+  const videos = await getLatestVideos();
+
   return (
     <section id="radio" className="section section--surface">
       {/* Section header */}
@@ -43,25 +98,13 @@ export default function Radio() {
         {/* Embed */}
         <div>
           <div className="radio-embed-wrap">
-            {/*
-              Placeholder — swap for a real iframe once the YouTube API key is
-              set up and the latest video ID can be fetched automatically.
-              See CONNECTED_Projektuebergabe.md § Open Items #7.
-            */}
-            <div className="radio-embed-placeholder">
-              <span style={{ fontSize: '52px', opacity: 0.1, lineHeight: 1 }}>▶</span>
-              <span className="label--muted label" style={{ maxWidth: '260px' }}>
-                YouTube Player — wird nach API-Key-Setup automatisch geladen
-              </span>
-              <a
-                href={YT_CHANNEL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn--filled"
-              >
-                Zum Kanal →
-              </a>
-            </div>
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${FEATURED_VIDEO_ID}`}
+              title={FEATURED.title}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
           </div>
         </div>
 
@@ -83,7 +126,6 @@ export default function Radio() {
               {FEATURED.sub}
             </span>
           </h3>
-          <p className="radio-feat-meta">{FEATURED.meta}</p>
           <p className="radio-feat-desc">{FEATURED.desc}</p>
           <div className="radio-feat-tags">
             {FEATURED.tags.map((t) => (
@@ -103,30 +145,36 @@ export default function Radio() {
 
       {/* Archive label */}
       <div className="reveal" style={{ marginBottom: '20px' }}>
-        <p className="label">Archiv</p>
+        <p className="label">Neueste Uploads</p>
       </div>
 
-      {/* Archive grid */}
+      {/* Latest uploads grid */}
       <div className="radio-grid">
-        {ARCHIVE.map((ep, i) => {
+        {videos.map((video, i) => {
           const delay = i % 3 === 1 ? ' reveal-d1' : i % 3 === 2 ? ' reveal-d2' : '';
           return (
             <a
-              key={ep.num}
-              href={YT_CHANNEL}
+              key={video.id}
+              href={`https://www.youtube.com/watch?v=${video.id}`}
               target="_blank"
               rel="noopener noreferrer"
               className={`radio-card reveal${delay}`}
-              aria-label={`${ep.num}: ${ep.title}`}
+              aria-label={video.title}
             >
               <div className="rc-thumb">
-                <div className="rc-thumb-placeholder" aria-hidden="true">▶</div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={video.thumbnail}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
                 <div className="rc-thumb-overlay" aria-hidden="true">▶</div>
-                <div className="rc-num">{ep.num}</div>
+                {video.published && <div className="rc-num">{formatDate(video.published)}</div>}
               </div>
               <div className="rc-body">
-                <div className="rc-title">{ep.title}</div>
-                <div className="rc-meta">{ep.meta}</div>
+                <div className="rc-title">{video.title}</div>
               </div>
             </a>
           );
