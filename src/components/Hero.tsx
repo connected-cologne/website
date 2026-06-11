@@ -11,17 +11,31 @@ export default async function Hero() {
       id="hero"
       className="relative min-h-screen flex flex-col justify-end overflow-hidden pb-14 min-[960px]:pb-[72px]"
     >
+      <div className="hero-media" aria-hidden="true">
+        <video
+          className="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source src="/videos/connected-background.mp4" type="video/mp4" />
+        </video>
+        <div className="hero-media-gradient" />
+      </div>
+
       <div className="hero-glow" />
       <div className="hero-scanlines" />
 
       {/* Eyebrow */}
-      <div className="reveal flex items-center gap-4 mb-7 relative z-[1]">
+      <div className="hero-content reveal flex items-center gap-4 mb-7">
         <div className="w-10 h-px shrink-0" style={{ background: 'var(--purple)' }} />
         <span className="label">Cologne Electronic Collective — Est. 2023</span>
       </div>
 
       {/* Title */}
-      <h1 className="hero-title reveal reveal-d1 relative z-[1]">
+      <h1 className="hero-content hero-title reveal reveal-d1">
         <span className="block">
           <span className="glitch" data-t="CONNECTED">CONNECTED</span>
         </span>
@@ -29,7 +43,7 @@ export default async function Hero() {
       </h1>
 
       {/* Bottom row */}
-      <div className="reveal reveal-d2 relative z-[1] mt-9 min-[960px]:mt-14 flex flex-col min-[960px]:flex-row min-[960px]:items-end min-[960px]:justify-between gap-6">
+      <div className="hero-content reveal reveal-d2 mt-9 min-[960px]:mt-14 flex flex-col min-[960px]:flex-row min-[960px]:items-end min-[960px]:justify-between gap-6">
         {/* Description */}
         <p
           className="max-w-[360px] text-sm leading-[1.8]"
