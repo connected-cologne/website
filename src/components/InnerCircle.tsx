@@ -1,6 +1,7 @@
 export default function InnerCircle() {
   return (
-    <section id="inner-circle" className="section">
+    // TODO: re-enable when ready
+    <section id="inner-circle" className="section hidden">
       <div className="ic-glow" aria-hidden="true" />
 
       <p className="label reveal" style={{ position: 'relative', zIndex: 1 }}>

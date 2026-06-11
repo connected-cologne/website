@@ -24,7 +24,8 @@ const PRODUCTS = [
 
 export default function Merch() {
   return (
-    <section id="merch" className="section section--surface">
+    // TODO: re-enable when ready
+    <section id="merch" className="section section--surface hidden">
       {/* Section header */}
       <div className="section-head reveal">
         <div>
@@ -73,7 +74,7 @@ export default function Merch() {
                 <div className="mc-foot">
                   <span className="mc-price">{p.price}</span>
                   <button className="btn" style={{ padding: '8px 14px', fontSize: '9px' }}>
-                    Demnächst
+                    Coming Soon
                   </button>
                 </div>
               </div>

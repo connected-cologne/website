@@ -164,6 +164,38 @@ function createTiltEngine(getEl: () => HTMLElement | null, applyEl: () => HTMLEl
 }
 
 /* =============================================
+   MOBILE TILT — DeviceOrientation
+   Touch devices have no cursor, so the glow/tilt
+   is driven by device tilt instead. iOS 13+ gates
+   DeviceOrientationEvent behind a permission
+   prompt that must be triggered by a user gesture
+   (e.g. the first touch on a card) and only works
+   on HTTPS — never on localhost.
+   ============================================= */
+
+// Degrees of device tilt mapped to the full 0–100% pointer range.
+const ORIENTATION_RANGE = 45;
+
+type DeviceOrientationEventStatic = {
+  requestPermission?: () => Promise<'granted' | 'denied'>;
+};
+
+let orientationPermissionRequested = false;
+
+function requestOrientationPermission() {
+  if (orientationPermissionRequested) return;
+  orientationPermissionRequested = true;
+
+  const DOE = window.DeviceOrientationEvent as unknown as DeviceOrientationEventStatic;
+  if (typeof DOE?.requestPermission === 'function') {
+    // iOS Safari — resolves to 'granted' or 'denied'; if denied (or the
+    // promise rejects on insecure/unsupported contexts) the card simply
+    // never receives 'deviceorientation' events and stays static.
+    DOE.requestPermission().catch(() => {});
+  }
+}
+
+/* =============================================
    ICONS — small inline SVGs for the back side
    ============================================= */
 
@@ -282,7 +314,8 @@ export default function ArtistCard({ name, genres, image, bio, links = {} }: Art
 
   useEffect(() => {
     const el = tiltRef.current;
-    if (!el) return;
+    const wrap = wrapRef.current;
+    if (!el || !wrap) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
@@ -297,10 +330,36 @@ export default function ArtistCard({ name, genres, image, bio, links = {} }: Art
     tiltEngine.toCenter();
     tiltEngine.beginInitial(ANIMATION_CONFIG.INITIAL_DURATION);
 
+    // Touch devices: drive the glow/tilt via device tilt instead of the
+    // (non-existent) mouse. Falls back to a static card if orientation is
+    // unsupported or permission is denied — pointer handlers above still work.
+    let onOrientation: ((e: DeviceOrientationEvent) => void) | undefined;
+    let onFirstTouch: (() => void) | undefined;
+
+    if (window.matchMedia('(pointer: coarse)').matches && typeof window.DeviceOrientationEvent !== 'undefined') {
+      onOrientation = (event) => {
+        const { beta, gamma } = event;
+        if (beta === null || gamma === null) return;
+
+        const x = clamp((gamma + ORIENTATION_RANGE) / (ORIENTATION_RANGE * 2), 0, 1) * (el.clientWidth || 1);
+        const y = clamp((beta + ORIENTATION_RANGE) / (ORIENTATION_RANGE * 2), 0, 1) * (el.clientHeight || 1);
+
+        wrap.classList.add(styles.active);
+        tiltEngine.setTarget(x, y);
+      };
+      window.addEventListener('deviceorientation', onOrientation);
+
+      // iOS requires a user gesture to request permission — use the first touch.
+      onFirstTouch = () => requestOrientationPermission();
+      el.addEventListener('touchstart', onFirstTouch, { once: true, passive: true });
+    }
+
     return () => {
       el.removeEventListener('pointerenter', handlePointerEnter);
       el.removeEventListener('pointermove', handlePointerMove);
       el.removeEventListener('pointerleave', handlePointerLeave);
+      if (onOrientation) window.removeEventListener('deviceorientation', onOrientation);
+      if (onFirstTouch) el.removeEventListener('touchstart', onFirstTouch);
       if (enterTimerRef.current) window.clearTimeout(enterTimerRef.current);
       if (leaveRafRef.current) cancelAnimationFrame(leaveRafRef.current);
       tiltEngine.cancel();

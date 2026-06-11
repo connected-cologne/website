@@ -9,7 +9,6 @@
 .wrapper {
   position: relative;
   aspect-ratio: 3 / 4;
-  perspective: 900px;
 
   --pointer-x: 50%;
   --pointer-y: 50%;
@@ -28,6 +27,13 @@
 
 /* ─────────────────────────────────────────────
    Cursor-following purple glow behind the card
+
+   .wrapper intentionally has no z-index / stacking
+   context of its own (perspective lives on .tilt
+   instead) — that way this z-index: 0 layer and
+   .tilt's z-index: 1 layer are compared globally
+   across all cards, so an overflowing glow can
+   never paint above ANY card, including neighbors.
    ───────────────────────────────────────────── */
 
 .glow {
@@ -48,14 +54,22 @@
 
 /* ─────────────────────────────────────────────
    Tilt layer — 3D rotation follows the cursor
+
+   perspective lives here (rather than on .wrapper)
+   so .wrapper doesn't trap .glow in a per-card
+   stacking context. The perspective() transform
+   function gives this element's own rotation depth;
+   the perspective property gives .flipper's flip
+   the same depth, since .tilt fills .wrapper exactly.
    ───────────────────────────────────────────── */
 
 .tilt {
   position: absolute;
   inset: 0;
   z-index: 1;
+  perspective: 900px;
   transform-style: preserve-3d;
-  transform: translateZ(0) rotateX(var(--rotate-y)) rotateY(var(--rotate-x));
+  transform: perspective(900px) translateZ(0) rotateX(var(--rotate-y)) rotateY(var(--rotate-x));
   transition: transform 1s ease;
 }
 

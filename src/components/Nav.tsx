@@ -8,8 +8,9 @@ const LINKS = [
   { href: '#events',       label: 'Events' },
   { href: '#radio',        label: 'Radio' },
   { href: '#artists',      label: 'Artists' },
-  { href: '#inner-circle', label: 'Inner Circle' },
-  { href: '#merch',        label: 'Merch' },
+  // TODO: re-enable when ready
+  // { href: '#inner-circle', label: 'Inner Circle' },
+  // { href: '#merch',        label: 'Merch' },
 ];
 
 export default function Nav() {

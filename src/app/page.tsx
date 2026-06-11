@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 import Ticker from "@/components/Ticker";
 import Events from "@/components/Events";
 import Radio from "@/components/Radio";
@@ -13,6 +14,7 @@ export default function Home() {
       <main>
         <Hero />
         <Ticker />
+        <WhatsAppCTA />
         <Events />
         <Radio />
         <Artists />

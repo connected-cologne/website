@@ -9,7 +9,7 @@ const FEATURED = {
   tags: [
     { label: 'Techno',  cls: 'tag tag--purple' },
     { label: 'Studio',  cls: 'tag' },
-    { label: 'Neu',     cls: 'tag tag--avail' },
+    { label: 'New',     cls: 'tag tag--avail' },
   ],
   youtubeUrl: `https://www.youtube.com/watch?v=${FEATURED_VIDEO_ID}`,
 };
@@ -89,7 +89,7 @@ export default async function Radio() {
           <h2 className="section-title">Radio</h2>
         </div>
         <a href={YT_CHANNEL} target="_blank" rel="noopener noreferrer" className="btn">
-          YouTube Kanal →
+          YouTube Channel →
         </a>
       </div>
 
@@ -184,7 +184,7 @@ export default async function Radio() {
       {/* Load more */}
       <div className="reveal" style={{ display: 'flex', justifyContent: 'center', marginTop: '32px' }}>
         <a href={YT_CHANNEL} target="_blank" rel="noopener noreferrer" className="btn">
-          Alle Episodes →
+          All Episodes →
         </a>
       </div>
     </section>

@@ -9,7 +9,7 @@ export default async function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-end overflow-hidden px-5 pb-14 min-[600px]:px-8 min-[960px]:px-14 min-[960px]:pb-[72px]"
+      className="relative min-h-screen flex flex-col justify-end overflow-hidden pb-14 min-[960px]:pb-[72px]"
     >
       <div className="hero-glow" />
       <div className="hero-scanlines" />
@@ -55,7 +55,7 @@ export default async function Hero() {
                 color: 'var(--muted)',
               }}
             >
-              Nächstes Event
+              Next Event
             </span>
             <div className="hero-event-card">
               <div className="hec-date">{formatDay(nextEvent.date)}</div>

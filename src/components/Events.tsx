@@ -5,9 +5,9 @@ import { formatDay, getEvents, type SanityEvent } from '@/sanity/lib/queries';
 type EventStatus = 'available' | 'sold-out' | 'soon';
 
 const STATUS_TAG: Record<EventStatus, { label: string; cls: string }> = {
-  'available': { label: 'Verfügbar',  cls: 'tag tag--avail' },
-  'sold-out':  { label: 'Sold Out',   cls: 'tag tag--sold'  },
-  'soon':      { label: 'Demnächst',  cls: 'tag'            },
+  'available': { label: 'Available', cls: 'tag tag--avail' },
+  'sold-out':  { label: 'Sold Out',  cls: 'tag tag--sold'  },
+  'soon':      { label: 'Soon',      cls: 'tag'            },
 };
 
 function getStatus(ev: SanityEvent): EventStatus {
@@ -27,7 +27,7 @@ export default async function Events() {
           <p className="label" style={{ marginBottom: '10px' }}>01 — Upcoming</p>
           <h2 className="section-title">Events</h2>
         </div>
-        <a href="#" className="btn">Alle Events →</a>
+        <a href="#" className="btn">All Events →</a>
       </div>
 
       {/* Event list */}
