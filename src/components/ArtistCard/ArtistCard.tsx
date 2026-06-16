@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './ArtistCard.module.css';
 
@@ -393,9 +394,11 @@ export default function ArtistCard({ name, genres, image, bio, links = {} }: Art
           {/* ───────── FRONT ───────── */}
           <div className={`${styles.face} ${styles.front}`}>
             {!imgError ? (
-              <img
+              <Image
                 src={image}
                 alt={name}
+                fill
+                sizes="(min-width: 960px) 25vw, (min-width: 600px) 50vw, 100vw"
                 className={styles.photo}
                 onError={() => setImgError(true)}
               />
