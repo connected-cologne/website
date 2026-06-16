@@ -4,8 +4,8 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'NINTEN',
     genres: ['Techno', 'Industrial'],
-    image: '/images/artists/ninten.jpg',
-    bio: 'Gründungsmitglied von CONNECTED. Bekannt für treibende Sets zwischen Industrial und Melodic Techno. Regelmäßig auf den CONNECTED-Events vertreten.',
+    image: '/images/ninten_picture.jpg',
+    bio: 'Founding member of CONNECTED. Known for driving sets between industrial and melodic techno. A regular presence at CONNECTED events.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -15,8 +15,8 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'FINNITO',
     genres: ['Techno', 'Minimal'],
-    image: '/images/artists/finnito.jpg',
-    bio: 'Weniger ist mehr — FINNITOs minimalistischer Ansatz schafft Raum und Tiefe. Präzise, reduziert, mit einem untrüglichen Gespür für den richtigen Moment.',
+    image: '/images/finnito_picture.jpg',
+    bio: 'Less is more — FINNITO\'s minimalist approach creates space and depth. Precise, reduced, with an unerring sense for the right moment.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -25,8 +25,8 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'BOYSDOCRY',
     genres: ['Techno', 'Breaks'],
-    image: '/images/artists/boysdocry.jpg',
-    bio: 'BOYSDOCRY verbindet Techno mit Breaks und schafft eine unverwechselbare, energiegeladene Atmosphäre — roh, ehrlich, direkt.',
+    image: '/images/boysdocry_picture.jpg',
+    bio: 'BOYSDOCRY blends techno with breaks to create a distinctive, high-energy atmosphere — raw, honest, direct.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -36,8 +36,8 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'KISH',
     genres: ['Dark Techno', 'Groove'],
-    image: '/images/artists/kish.jpg',
-    bio: 'KISH steht für hypnotische Grooves und eine dunkle, intensive Energie auf dem Dancefloor. Sein Sound ist tief verwurzelt in der Kölner Club-Kultur.',
+    image: '/images/kish_picture.jpg',
+    bio: 'KISH stands for hypnotic grooves and a dark, intense energy on the dancefloor. His sound is deeply rooted in Cologne\'s club culture.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -47,7 +47,7 @@ const ARTISTS: ArtistCardProps[] = [
     name: 'ZAR.I',
     genres: ['Acid', 'Rave'],
     image: '/images/zari_picture.JPG',
-    bio: 'Inspiriert von der frühen Rave-Kultur der 90er. ZARI lebt und liebt Acid — jedes Set eine Zeitreise in die Ursprünge elektronischer Musik.',
+    bio: 'Inspired by the early rave culture of the 90s. ZARI lives and loves acid — every set a journey back to the origins of electronic music.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -57,8 +57,8 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'AAADRICH',
     genres: ['Techno', 'Experimental'],
-    image: '/images/artists/aaadrich.jpg',
-    bio: 'AAADRICH denkt Techno neu — experimentell, grenzüberschreitend und immer auf der Suche nach dem unerwarteten Moment, der alles verändert.',
+    image: '/images/aaadrich_picture.jpg',
+    bio: 'AAADRICH rethinks techno — experimental, boundary-pushing and always in search of the unexpected moment that changes everything.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -70,7 +70,7 @@ const ARTISTS: ArtistCardProps[] = [
     name: 'SAO',
     genres: ['Melodic', 'Progressive'],
     image: '/images/artists/sao.jpg',
-    bio: 'SAO bringt Melodie und Emotion in den Techno. Seine Sets bauen Spannungsbögen auf, die den Dancefloor in eine andere Dimension transportieren.',
+    bio: 'SAO brings melody and emotion to techno. His sets build arcs of tension that carry the dancefloor into another dimension.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -79,8 +79,8 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'WEHLERISCH',
     genres: ['Techno'],
-    image: '/images/artists/wehlerisch.jpg',
-    bio: 'Teil des CONNECTED-Kollektivs. Bio und Fotos folgen in Kürze.',
+    image: '/images/wehlerisch_picture.jpg',
+    bio: 'Part of the CONNECTED collective. Bio and photos coming soon.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -89,8 +89,8 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'DAVIDE',
     genres: ['Techno'],
-    image: '/images/artists/davide.jpg',
-    bio: 'Teil des CONNECTED-Kollektivs. Bio und Fotos folgen in Kürze.',
+    image: '/images/davide_picture.jpg',
+    bio: 'Part of the CONNECTED collective. Bio and photos coming soon.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -99,8 +99,8 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'SENNA',
     genres: ['Techno'],
-    image: '/images/artists/senna.jpg',
-    bio: 'Teil des CONNECTED-Kollektivs. Bio und Fotos folgen in Kürze.',
+    image: '/images/senna_picture.jpg',
+    bio: 'Part of the CONNECTED collective. Bio and photos coming soon.',
     links: {
       instagram: '#',
       soundcloud: '#',
@@ -113,10 +113,9 @@ export default function Artists() {
     <section id="artists" className="section">
       <div className="section-head reveal">
         <div>
-          <p className="label" style={{ marginBottom: '10px' }}>03 — Das Kollektiv</p>
+          <p className="label" style={{ marginBottom: '10px' }}>03 — The Collective</p>
           <h2 className="section-title">Artists</h2>
         </div>
-        <span className="label label--muted artists-hint">Hover for Info</span>
       </div>
 
       <div className="artists-grid">

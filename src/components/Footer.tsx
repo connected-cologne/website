@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import ContactModal from './ContactModal';
+import Impressum from './Impressum';
+import Datenschutz from './Datenschutz';
 import type { ContactSubject } from '@/lib/contact';
 
 /* =============================================
@@ -66,6 +68,8 @@ const SOCIALS = [
 export default function Footer() {
   const [contactOpen, setContactOpen] = useState(false);
   const [contactSubject, setContactSubject] = useState<ContactSubject>('general');
+  const [imprintOpen, setImprintOpen] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
 
   const openContact = (subject: ContactSubject) => {
     setContactSubject(subject);
@@ -76,7 +80,7 @@ export default function Footer() {
     <footer id="footer">
       <div className="footer-wrap">
         <div className="footer-top">
-          <Link href="/" aria-label="CONNECTED Cologne — zur Startseite">
+          <Link href="/" aria-label="CONNECTED Cologne — home">
             <Image
               src="/images/Cc_Logo_SW.png"
               alt="CONNECTED Cologne"
@@ -85,7 +89,7 @@ export default function Footer() {
               style={{ height: '52px', width: 'auto', objectFit: 'contain' }}
             />
           </Link>
-          <p className="footer-sub">Cologne Electronic Collective — Est. 2023</p>
+          <p className="footer-sub">Cologne Electronic Collective — Est. 2025</p>
           <div className="footer-socials-row">
             <div className="footer-socials">
               {SOCIALS.map(({ label, href, Icon }) => (
@@ -116,8 +120,8 @@ export default function Footer() {
         <div className="footer-legal">
           <button type="button" onClick={() => openContact('booking')}>Booking</button>
           <a href="mailto:press@connected-cologne.de">Press</a>
-          <a href="#">Imprint</a>
-          <a href="#">Privacy</a>
+          <button type="button" onClick={() => setImprintOpen(true)}>Imprint</button>
+          <button type="button" onClick={() => setPrivacyOpen(true)}>Privacy</button>
         </div>
       </div>
 
@@ -126,6 +130,8 @@ export default function Footer() {
         onClose={() => setContactOpen(false)}
         initialSubject={contactSubject}
       />
+      <Impressum open={imprintOpen} onClose={() => setImprintOpen(false)} />
+      <Datenschutz open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
     </footer>
   );
 }

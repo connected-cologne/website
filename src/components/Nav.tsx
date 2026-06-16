@@ -8,6 +8,7 @@ const LINKS = [
   { href: '#events',       label: 'Events' },
   { href: '#radio',        label: 'Radio' },
   { href: '#artists',      label: 'Artists' },
+  { href: '#listen',       label: 'Listen' },
   // TODO: re-enable when ready
   // { href: '#inner-circle', label: 'Inner Circle' },
   // { href: '#merch',        label: 'Merch' },

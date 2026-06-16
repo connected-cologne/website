@@ -31,7 +31,7 @@ export default async function Hero() {
       {/* Eyebrow */}
       <div className="hero-content reveal flex items-center gap-4 mb-7">
         <div className="w-10 h-px shrink-0" style={{ background: 'var(--purple)' }} />
-        <span className="label">Cologne Electronic Collective — Est. 2023</span>
+        <span className="label">Cologne Techno Collective — Est. 2025</span>
       </div>
 
       {/* Title */}
@@ -50,11 +50,11 @@ export default async function Hero() {
           style={{ color: 'var(--text-2)' }}
         >
           <strong style={{ color: 'var(--text)', fontWeight: 600 }}>
-            Techno. Drum &amp; Bass. Rave Culture.
+            Techno. Dance. Rave Culture.
           </strong>
           <br />
-          Ein Zusammenschluss von DJs aus Köln, die Räume und Menschen durch
-          elektronische Musik verbinden. Keine Kompromisse.
+          A collective of DJs from Cologne, connecting spaces and people
+          through electronic music. No compromises.
         </p>
 
         {/* Next event card */}
@@ -77,7 +77,7 @@ export default async function Hero() {
                 <div className="hec-name">{nextEvent.title}</div>
                 <div className="hec-sub">
                   {nextEvent.location} ·{' '}
-                  {new Date(nextEvent.date).toLocaleTimeString('de-DE', {
+                  {new Date(nextEvent.date).toLocaleTimeString('en-GB', {
                     hour: '2-digit',
                     minute: '2-digit',
                   })}

@@ -611,6 +611,9 @@ body::before {
   white-space: nowrap;
   border-bottom: 1px solid var(--border);
   padding: 12px 0;
+  /* Match the 24px gap below the ticker (the WhatsApp CTA's margin-top)
+     so the ticker sits balanced between the hero and the CTA. */
+  margin-top: 24px;
   background: var(--surface);
 }
 
@@ -683,9 +686,17 @@ body::before {
   border: none;
 }
 
-.radio-embed-placeholder {
+/* =============================================
+   TWO-CLICK EMBED CONSENT (YouTube + SoundCloud)
+   Shared placeholder — no third-party connection
+   is made until the user clicks.
+   ============================================= */
+
+.embed-consent {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -694,6 +705,83 @@ body::before {
   background: var(--surface-2);
   text-align: center;
   padding: 24px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* Cookieless thumbnail (YouTube only); dimmed so the play button reads. */
+.embed-consent-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+/* Circular purple play button — shared by both embed types. */
+.embed-play {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #fff;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+.embed-play svg {
+  width: 26px;
+  height: 26px;
+  margin-left: 2px; /* optically center the triangle */
+}
+.embed-consent:hover .embed-play,
+.sc-consent:hover .embed-play {
+  background: #8347d4;
+  transform: scale(1.06);
+}
+
+/* SoundCloud placeholder — matches the real iframe's box (100% × 300px). */
+.sc-consent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  height: 300px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+}
+
+.embed-consent-label {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-2);
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+/* SoundCloud faint glyph behind the play button. */
+.embed-sc-glyph {
+  position: relative;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  color: var(--text-2);
+  flex-shrink: 0;
 }
 
 /* Featured info panel */
@@ -1150,6 +1238,65 @@ body::before {
 }
 
 /* =============================================
+   LISTEN
+   ============================================= */
+
+/* Mobile: stacked, full width */
+.listen-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+/* Desktop: up to 3 equal-width columns, centered.
+   Columns are capped (not 1fr across the full row) so 1–2
+   releases stay centered rather than stretching wide. */
+@media (min-width: 960px) {
+  .listen-grid {
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 360px));
+    justify-content: center;
+    gap: 24px;
+  }
+}
+
+.listen-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 1.5px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.listen-embed {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.listen-spotify {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+/* Spotify brand green — the one exception to the purple/yellow palette */
+.listen-spotify-btn {
+  background: #1db954;
+  border-color: #1db954;
+  color: #080808;
+}
+.listen-spotify-btn:hover {
+  background: #1ed760;
+  border-color: #1ed760;
+  color: #080808;
+}
+
+@media (min-width: 600px) {
+  .listen-title { font-size: 28px; }
+}
+
+/* =============================================
    FOOTER
    ============================================= */
 
@@ -1416,6 +1563,116 @@ body::before {
     max-height: 100%;
     border-radius: 0;
     border: none;
+  }
+}
+
+/* =============================================
+   LEGAL OVERLAY (Impressum / Datenschutz)
+   Slide-in panel from the right; site stays
+   visible (dimmed) behind it.
+   ============================================= */
+
+.legal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  background: rgba(8, 8, 8, 0.8);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.legal-overlay--visible {
+  opacity: 1;
+}
+
+.legal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  height: 100%;
+  background: var(--bg);
+  border-left: 1px solid var(--border-2);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+.legal-overlay--visible .legal-panel {
+  transform: translateX(0);
+}
+
+.legal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  color: var(--text-2);
+  background: var(--bg);
+  transition: border-color 0.2s, color 0.2s;
+  z-index: 1;
+}
+.legal-close:hover { border-color: var(--purple); color: var(--purple); }
+.legal-close svg { width: 16px; height: 16px; }
+
+.legal-content {
+  padding: 72px 28px 48px;
+}
+
+@media (min-width: 600px) {
+  .legal-content { padding: 80px 48px 64px; }
+}
+
+.legal-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 8vw, 52px);
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 32px;
+}
+
+.legal-block {
+  margin-bottom: 28px;
+}
+
+.legal-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.legal-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+.legal-text + .legal-text {
+  margin-top: 12px;
+}
+.legal-text a {
+  color: var(--purple);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+.legal-text a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 599px) {
+  .legal-panel {
+    max-width: none;
+    border-left: none;
   }
 }
 

@@ -13,8 +13,8 @@ export default function InnerCircle() {
       </h2>
 
       <p className="ic-sub reveal reveal-d2">
-        Exklusiver Bereich für Kollektiv-Members und enge Community.
-        Dieser Bereich wird demnächst freigeschaltet.
+        An exclusive space for collective members and the close community.
+        This area will be unlocked soon.
       </p>
 
       <div className="ic-soon reveal reveal-d3">Coming Soon</div>

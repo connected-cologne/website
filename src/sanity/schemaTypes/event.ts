@@ -21,7 +21,7 @@ export const eventType = defineType({
       name: 'location',
       title: 'Location',
       type: 'string',
-      description: 'e.g. "Industriehalle West, Köln"',
+      description: 'e.g. "Industriehalle West, Cologne"',
       validation: (rule) => rule.required(),
     }),
     defineField({

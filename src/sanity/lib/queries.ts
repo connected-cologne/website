@@ -39,9 +39,35 @@ export async function getEvents(): Promise<SanityEvent[]> {
   }
 }
 
+// Releases — manual order, ascending. Max. 3 are shown (design decision).
+export const RELEASES_QUERY = defineQuery(`
+  *[_type == "release"] | order(order asc) {
+    _id,
+    title,
+    soundcloudUrl,
+    order
+  }
+`);
+
+export type Release = {
+  _id: string;
+  title: string;
+  soundcloudUrl: string;
+  order?: number;
+};
+
+// Releases, ordered ascending — used by the Listen section.
+export async function getReleases(): Promise<Release[]> {
+  try {
+    return await client.fetch(RELEASES_QUERY, {}, { next: { revalidate: 60 } });
+  } catch {
+    return [];
+  }
+}
+
 export function formatDay(iso: string) {
   const d = new Date(iso);
-  const day = d.toLocaleDateString('de-DE', { day: '2-digit' });
-  const month = d.toLocaleDateString('de-DE', { month: 'short' }).replace('.', '').toUpperCase();
+  const day = d.toLocaleDateString('en-GB', { day: '2-digit' });
+  const month = d.toLocaleDateString('en-GB', { month: 'short' }).replace('.', '').toUpperCase();
   return `${day} ${month}`;
 }

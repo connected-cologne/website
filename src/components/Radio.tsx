@@ -1,3 +1,5 @@
+import RadioEmbed from './RadioEmbed';
+
 // UPDATE THIS — replace with most popular / latest video ID to feature
 const FEATURED_VIDEO_ID = 'HkQuKC7iyrw';
 
@@ -5,7 +7,7 @@ const FEATURED = {
   num:  'CONNECTED RADIO',
   title: 'Featured Set',
   sub:  'Studio Set',
-  desc: 'Schaut direkt rein — das aktuell ausgewählte Set von CONNECTED Radio. Mehr Sets gibt es im Archiv und auf unserem YouTube-Kanal.',
+  desc: 'Dive straight in — the currently featured set from CONNECTED Radio. Find more sets in the archive and on our YouTube channel.',
   tags: [
     { label: 'Techno',  cls: 'tag tag--purple' },
     { label: 'Studio',  cls: 'tag' },
@@ -37,7 +39,7 @@ function decodeEntities(str: string) {
 function formatDate(iso: string) {
   if (!iso) return '';
   try {
-    return new Date(iso).toLocaleDateString('de-DE', {
+    return new Date(iso).toLocaleDateString('en-GB', {
       day: '2-digit',
       month: 'short',
       year: 'numeric',
@@ -57,7 +59,7 @@ async function getLatestVideos(): Promise<RadioVideo[]> {
 
     const entries = xml.match(/<entry>[\s\S]*?<\/entry>/g) ?? [];
 
-    return entries.slice(0, 5).map((entry) => {
+    return entries.slice(0, 6).map((entry) => {
       const id = entry.match(/<yt:videoId>(.*?)<\/yt:videoId>/)?.[1] ?? '';
       const title = entry.match(/<media:title>(.*?)<\/media:title>/)?.[1] ?? '';
       const thumbnail =
@@ -88,24 +90,13 @@ export default async function Radio() {
           <p className="label" style={{ marginBottom: '10px' }}>02 — Studio Sets</p>
           <h2 className="section-title">Radio</h2>
         </div>
-        <a href={YT_CHANNEL} target="_blank" rel="noopener noreferrer" className="btn">
-          YouTube Channel →
-        </a>
       </div>
 
       {/* Featured player + info */}
       <div className="radio-featured reveal">
-        {/* Embed */}
+        {/* Embed — two-click (DSGVO) wrapper, loads the iframe on click */}
         <div>
-          <div className="radio-embed-wrap">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${FEATURED_VIDEO_ID}`}
-              title={FEATURED.title}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </div>
+          <RadioEmbed videoId={FEATURED_VIDEO_ID} title={FEATURED.title} />
         </div>
 
         {/* Info panel */}
@@ -138,14 +129,14 @@ export default async function Radio() {
             rel="noopener noreferrer"
             className="btn btn--filled"
           >
-            ▶ Auf YouTube ansehen
+            ▶ Watch on YouTube
           </a>
         </div>
       </div>
 
       {/* Archive label */}
       <div className="reveal" style={{ marginBottom: '20px' }}>
-        <p className="label">Neueste Uploads</p>
+        <p className="label">Latest Uploads</p>
       </div>
 
       {/* Latest uploads grid */}

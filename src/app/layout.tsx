@@ -28,7 +28,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "CONNECTED — Cologne Electronic Collective",
-  description: "Techno. Drum & Bass. Rave Culture. Ein Zusammenschluss von DJs aus Köln.",
+  description: "Techno. Drum & Bass. Rave Culture. A collective of DJs from Cologne.",
 };
 
 export default function RootLayout({
@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="de"
+      lang="en"
       className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${ibmPlexMono.variable}`}
     >
       <body>

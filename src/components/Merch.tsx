@@ -29,10 +29,10 @@ export default function Merch() {
       {/* Section header */}
       <div className="section-head reveal">
         <div>
-          <p className="label" style={{ marginBottom: '10px' }}>05 — Kollektiv Store</p>
+          <p className="label" style={{ marginBottom: '10px' }}>05 — Collective Store</p>
           <h2 className="section-title">Merch</h2>
         </div>
-        <a href="#" className="btn">Zum Shop →</a>
+        <a href="#" className="btn">Visit Shop →</a>
       </div>
 
       {/* Product grid */}

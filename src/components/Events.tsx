@@ -87,7 +87,7 @@ export default async function Events() {
 
         {events.length === 0 && (
           <p className="label label--muted reveal" style={{ padding: '20px 0' }}>
-            Aktuell stehen keine Events fest — schaut bald wieder vorbei.
+            No events are scheduled right now — check back soon.
           </p>
         )}
       </div>

@@ -4,6 +4,7 @@ import Ticker from "@/components/Ticker";
 import Events from "@/components/Events";
 import Radio from "@/components/Radio";
 import Artists from "@/components/Artists";
+import Listen from "@/components/Listen";
 import InnerCircle from "@/components/InnerCircle";
 import Merch from "@/components/Merch";
 import Footer from "@/components/Footer";
@@ -18,6 +19,7 @@ export default function Home() {
         <Events />
         <Radio />
         <Artists />
+        <Listen />
         <InnerCircle />
         <Merch />
       </main>
