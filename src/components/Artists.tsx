@@ -69,7 +69,7 @@ const ARTISTS: ArtistCardProps[] = [
   {
     name: 'SAO',
     genres: ['Melodic', 'Progressive'],
-    image: '/images/artists/sao.jpg',
+    image: '/images/sao_picture.jpg',
     bio: 'SAO brings melody and emotion to techno. His sets build arcs of tension that carry the dancefloor into another dimension.',
     links: {
       instagram: '#',
