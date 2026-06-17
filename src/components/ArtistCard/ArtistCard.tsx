@@ -396,7 +396,7 @@ export default function ArtistCard({ name, genres, image, bio, links = {} }: Art
             {!imgError ? (
               <Image
                 src={image}
-                alt={name}
+                alt={`${name} DJ portrait`}
                 fill
                 sizes="(min-width: 960px) 25vw, (min-width: 600px) 50vw, 100vw"
                 className={styles.photo}

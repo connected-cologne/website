@@ -27,8 +27,35 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CONNECTED — Cologne Electronic Collective",
-  description: "Techno. Drum & Bass. Rave Culture. A collective of DJs from Cologne.",
+  // TODO: confirm final production domain before launch — makes OG image URLs absolute
+  metadataBase: new URL("https://connected-cologne.de"),
+  title: "CONNECTED Cologne | Techno DJ Collective",
+  description:
+    "CONNECTED is a Cologne-based DJ collective spanning Techno, Trance, Groove, House and Schranz. Discover upcoming events, radio sets, and the 10 artists behind the sound.",
+  keywords: [
+    "DJ Cologne",
+    "Connected Cologne",
+    "Techno Cologne",
+    "Drum and Bass Cologne",
+    "DJ Kollektiv Köln",
+    "Techno DJ Köln",
+  ],
+  openGraph: {
+    title: "CONNECTED Cologne | Techno DJ Collective",
+    description:
+      "CONNECTED is a Cologne-based DJ collective spanning Techno, Trance, Groove, House and Schranz. Discover upcoming events, radio sets, and the 10 artists behind the sound.",
+    type: "website",
+    locale: "en_US",
+    siteName: "CONNECTED Cologne",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "CONNECTED Cologne logo",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
