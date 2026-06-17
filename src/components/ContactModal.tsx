@@ -149,7 +149,7 @@ export default function ContactModal({ open, onClose, initialSubject = 'general'
               </select>
             </label>
 
-            {form.subject === 'radio' && (
+            {form.subject === 'demo' && (
               <label className="contact-field">
                 <span className="contact-label">Demo Link</span>
                 <input
