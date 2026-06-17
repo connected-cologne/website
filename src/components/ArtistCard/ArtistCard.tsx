@@ -11,6 +11,7 @@ import styles from './ArtistCard.module.css';
 export type ArtistLinks = {
   instagram?: string;
   soundcloud?: string;
+  spotify?: string;
   youtube?: string;
   presskit?: string;
 };
@@ -222,6 +223,17 @@ function SoundCloudIcon() {
   );
 }
 
+function SpotifyIcon() {
+  return (
+    <svg className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M7.5 9.5c3-1 6.5-.7 9 1" strokeLinecap="round" />
+      <path d="M8 12.5c2.3-.8 5-.6 7 .8" strokeLinecap="round" />
+      <path d="M8.5 15.3c1.8-.6 3.8-.4 5.3.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function YoutubeIcon() {
   return (
     <svg className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -369,7 +381,7 @@ export default function ArtistCard({ name, genres, image, bio, links = {} }: Art
 
   const toggleFlip = () => setFlipped((f) => !f);
 
-  const hasLinks = links.instagram || links.soundcloud || links.youtube || links.presskit;
+  const hasLinks = links.instagram || links.soundcloud || links.spotify || links.youtube || links.presskit;
 
   return (
     <div ref={wrapRef} className={styles.wrapper}>
@@ -456,6 +468,18 @@ export default function ArtistCard({ name, genres, image, bio, links = {} }: Art
                     >
                       <SoundCloudIcon />
                       <span>SoundCloud</span>
+                    </a>
+                  )}
+                  {links.spotify && (
+                    <a
+                      href={links.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.linkRow}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <SpotifyIcon />
+                      <span>Spotify</span>
                     </a>
                   )}
                   {links.youtube && (
