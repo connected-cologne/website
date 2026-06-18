@@ -91,10 +91,10 @@
   inset: 0;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
-  /* linear so 90deg (edge-on) lands at exactly 50% of the duration (0.4s),
+  /* linear so 90deg (edge-on) lands at exactly 50% of the duration (0.25s),
      which is when the overlay opacity toggle switches — keeps the two in
      sync in both directions. */
-  transition: transform 0.8s linear;
+  transition: transform 0.5s linear;
   cursor: pointer;
   outline: none;
 }
@@ -359,7 +359,7 @@
    compositing layers where backface-visibility is NOT reliably
    honored — they flashed mirrored mid-flip. Toggling opacity
    from the flip state hides them for real, independent of the
-   3D backface math. The 0s/0.4s transition (half the 0.8s flip)
+   3D backface math. The 0s/0.25s transition (half the 0.5s flip)
    switches them instantly at the ~90deg edge-on point, so the
    change itself is never visible.
    ───────────────────────────────────────────── */
@@ -367,7 +367,7 @@
 .info,
 .front > .hint,
 .backContent {
-  transition: opacity 0s linear 0.4s;
+  transition: opacity 0s linear 0.25s;
 }
 
 /* Showing the back → hide the front overlays. */
