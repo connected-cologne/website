@@ -100,7 +100,7 @@ export default function Nav() {
         className={`nav-bar fixed top-0 left-0 right-0 z-[500] flex items-center justify-between h-[var(--nav-h)] px-5 min-[600px]:px-8 min-[960px]:px-14 border-b${stuck ? ' nav-stuck' : ''}`}
       >
         {/* Logo */}
-        <Link href="/" className="nav-pill flex items-center shrink-0">
+        <Link href="/" className="flex items-center shrink-0">
           <Image
             src="/images/Cc_Logo_SW.png"
             alt="CONNECTED Cologne"
@@ -135,7 +135,7 @@ export default function Nav() {
 
           {/* Hamburger — mobile only */}
           <button
-            className="nav-pill flex min-[960px]:hidden flex-col justify-center gap-[5px] p-1"
+            className="flex min-[960px]:hidden flex-col justify-center gap-[5px] p-1"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
