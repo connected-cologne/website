@@ -70,7 +70,7 @@
   perspective: 900px;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
-  transform: perspective(900px) translateZ(0) rotateX(var(--rotate-y)) rotateY(var(--rotate-x));
+  transform: perspective(900px) rotateX(var(--rotate-y)) rotateY(var(--rotate-x));
   transition: transform 1s ease;
 }
 

@@ -330,8 +330,14 @@ export default function ArtistCard({ name, genres, image, bio, links = {} }: Art
     const wrap = wrapRef.current;
     if (!el || !wrap) return;
 
+    // Tilt + intro animation run on fine-pointer (desktop) only. On touch
+    // devices we skip the whole engine: mouse-tilt is meaningless without a
+    // cursor, and the per-frame .tilt transform was breaking the nested 3D
+    // flip context on iOS Safari (mirrored/snapping flip). Click-to-flip
+    // still works everywhere — this effect only drives the tilt/intro.
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) return;
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    if (reduceMotion || coarsePointer) return;
 
     el.addEventListener('pointerenter', handlePointerEnter);
     el.addEventListener('pointermove', handlePointerMove);
