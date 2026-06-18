@@ -69,6 +69,7 @@
   z-index: 1;
   perspective: 900px;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transform: perspective(900px) translateZ(0) rotateX(var(--rotate-y)) rotateY(var(--rotate-x));
   transition: transform 1s ease;
 }
@@ -89,6 +90,7 @@
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
   cursor: pointer;
   outline: none;
