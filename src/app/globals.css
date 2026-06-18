@@ -245,15 +245,15 @@ body::before {
   .nav-edge-fade {
     -webkit-mask-image: linear-gradient(
       to right,
-      #000 0%, #000 28%,
-      transparent 42%, transparent 58%,
-      #000 72%, #000 100%
+      #000 0%, #000 24%,
+      transparent 28%, transparent 72%,
+      #000 76%, #000 100%
     );
     mask-image: linear-gradient(
       to right,
-      #000 0%, #000 28%,
-      transparent 42%, transparent 58%,
-      #000 72%, #000 100%
+      #000 0%, #000 24%,
+      transparent 28%, transparent 72%,
+      #000 76%, #000 100%
     );
   }
 }
