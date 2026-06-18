@@ -228,6 +228,37 @@ body::before {
 }
 
 /* =============================================
+   NAV — mobile edge-fade mask
+
+   On mobile, clip the nav's frosted background + blur
+   to the left/right edges (behind the logo and hamburger),
+   leaving the empty middle genuinely clear so scrolled
+   content shows through unblurred. The mask clips the
+   element's whole composited result, so it removes the
+   backdrop-filter blur in the middle — not just the fill.
+
+   Desktop (>=960px) is intentionally excluded: the centered
+   nav links live in the middle and need the full-width blur.
+   ============================================= */
+
+@media (max-width: 959.98px) {
+  .nav-edge-fade {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      #000 0%, #000 28%,
+      transparent 42%, transparent 58%,
+      #000 72%, #000 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      #000 0%, #000 28%,
+      transparent 42%, transparent 58%,
+      #000 72%, #000 100%
+    );
+  }
+}
+
+/* =============================================
    NAV — mobile drawer
    ============================================= */
 
