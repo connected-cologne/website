@@ -349,6 +349,36 @@
 }
 
 /* ─────────────────────────────────────────────
+   Flip state — explicitly hide the off-facing overlays
+
+   .info (name/genres), the front .hint, and .backContent are
+   positioned with z-index, so iOS promotes them to their own
+   compositing layers where backface-visibility is NOT reliably
+   honored — they flashed mirrored mid-flip. Toggling opacity
+   from the flip state hides them for real, independent of the
+   3D backface math. The 0s/0.4s transition (half the 0.8s flip)
+   switches them instantly at the ~90deg edge-on point, so the
+   change itself is never visible.
+   ───────────────────────────────────────────── */
+
+.info,
+.front > .hint,
+.backContent {
+  transition: opacity 0s linear 0.4s;
+}
+
+/* Showing the back → hide the front overlays. */
+.flipper.flipped .info,
+.flipper.flipped .front > .hint {
+  opacity: 0;
+}
+
+/* Showing the front → hide the back overlay. */
+.flipper:not(.flipped) .backContent {
+  opacity: 0;
+}
+
+/* ─────────────────────────────────────────────
    Reduced motion — disable tilt entirely
    ───────────────────────────────────────────── */
 
