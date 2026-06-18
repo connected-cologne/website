@@ -99,7 +99,9 @@ export default function Nav() {
       <nav
         className="fixed top-0 left-0 right-0 z-[500] flex items-center justify-between h-[var(--nav-h)] px-5 min-[600px]:px-8 min-[960px]:px-14 border-b"
         style={{
-          background: stuck ? 'rgba(8,8,8,0.6)' : 'transparent',
+          background: stuck
+            ? 'linear-gradient(to right, rgba(8,8,8,0.6) 0%, rgba(8,8,8,0) 28%, rgba(8,8,8,0) 72%, rgba(8,8,8,0.6) 100%)'
+            : 'linear-gradient(to right, rgba(8,8,8,0) 0%, rgba(8,8,8,0) 28%, rgba(8,8,8,0) 72%, rgba(8,8,8,0) 100%)',
           borderColor: stuck ? 'var(--border)' : 'transparent',
           backdropFilter: stuck ? 'blur(16px)' : 'none',
           WebkitBackdropFilter: stuck ? 'blur(16px)' : 'none',
