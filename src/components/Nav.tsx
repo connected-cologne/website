@@ -99,10 +99,11 @@ export default function Nav() {
       <nav
         className="fixed top-0 left-0 right-0 z-[500] flex items-center justify-between h-[var(--nav-h)] px-5 min-[600px]:px-8 min-[960px]:px-14 border-b"
         style={{
-          background: stuck ? 'rgba(8,8,8,0.9)' : 'transparent',
+          background: stuck ? 'rgba(8,8,8,0.6)' : 'transparent',
           borderColor: stuck ? 'var(--border)' : 'transparent',
           backdropFilter: stuck ? 'blur(16px)' : 'none',
-          transition: 'background 0.4s, border-color 0.4s',
+          WebkitBackdropFilter: stuck ? 'blur(16px)' : 'none',
+          transition: 'background 0.4s, border-color 0.4s, backdrop-filter 0.4s, -webkit-backdrop-filter 0.4s',
         }}
       >
         {/* Logo */}
