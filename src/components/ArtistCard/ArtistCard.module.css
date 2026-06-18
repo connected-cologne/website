@@ -214,6 +214,10 @@
   bottom: 0;
   z-index: 4;
   padding: 20px;
+  /* Own stacking context (positioned + z-index) → own layer, so it needs
+     its own backface hidden or it flashes mirrored mid-flip on iOS. */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .name {
@@ -251,6 +255,9 @@
   z-index: 5;
   margin-top: 0;
   color: var(--text-2);
+  /* Same as .info: own layer, so hide its backface during the flip. */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* ─────────────────────────────────────────────
