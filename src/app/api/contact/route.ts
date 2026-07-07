@@ -3,8 +3,12 @@ import { Resend } from 'resend';
 
 import { CONTACT_SUBJECTS, type ContactSubject } from '@/lib/contact';
 
-// TODO: add real RESEND_API_KEY to .env.local
-const resend = new Resend(process.env.RESEND_API_KEY ?? 're_placeholder_key');
+const apiKey = process.env.RESEND_API_KEY;
+if (!apiKey) {
+  throw new Error('RESEND_API_KEY is not set.');
+}
+
+const resend = new Resend(apiKey);
 
 export async function POST(request: Request) {
   let body: {
@@ -42,7 +46,7 @@ export async function POST(request: Request) {
   ];
 
   const { error } = await resend.emails.send({
-    from: 'onboarding@resend.dev',
+    from: 'Connected Cologne <kontakt@connected-cologne.de>',
     to: subjectInfo.to,
     replyTo: email,
     subject: `[Contact] ${subjectInfo.label} — ${name}`,
