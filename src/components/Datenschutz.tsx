@@ -17,7 +17,7 @@ export default function Datenschutz({ open, onClose }: DatenschutzProps) {
           <br />
           Vogelsanger Straße 365
           <br />
-          50825 Köln
+          50827 Köln
           <br />
           E-Mail:{' '}
           <a href="mailto:info@connected-cologne.de">info@connected-cologne.de</a>

@@ -17,7 +17,7 @@ export default function Impressum({ open, onClose }: ImpressumProps) {
           <br />
           Vogelsanger Straße 365
           <br />
-          50825 Köln
+          50827 Köln
         </p>
       </div>
 
@@ -36,7 +36,7 @@ export default function Impressum({ open, onClose }: ImpressumProps) {
           <br />
           Vogelsanger Straße 365
           <br />
-          50825 Köln
+          50827 Köln
         </p>
       </div>
 
