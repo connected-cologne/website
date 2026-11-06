@@ -10,7 +10,7 @@ const ARTISTS: ArtistCardProps[] = [
       instagram: 'https://www.instagram.com/ninten.connected',
       soundcloud: 'https://soundcloud.com/ninten-988569425',
       spotify: 'https://open.spotify.com/artist/71BJpbMhkaCpmRXa6JhPhX',
-      presskit: '#',
+      presskit: 'https://drive.google.com/drive/folders/1K3enwlmHjM5Ucm1gj_YT0cLUII4DltwE?usp=sharing',
     },
   },
   {
@@ -41,6 +41,7 @@ const ARTISTS: ArtistCardProps[] = [
     links: {
       instagram: 'https://www.instagram.com/kish.cologne',
       soundcloud: 'https://on.soundcloud.com/NiCZY0Kl1cMkkiiNd0',
+      presskit: 'https://drive.google.com/drive/folders/1YgbX-QzsGbVQQaEwJgFFMvZj28R6VdPW',
     },
   },
   {
@@ -50,7 +51,6 @@ const ARTISTS: ArtistCardProps[] = [
     bio: 'Pure forward momentum. Speedhouse kicks, Hardhouse muscle, built for the peak hour.',
     links: {
       instagram: 'https://www.instagram.com/zar.izar.i',
-      presskit: '#',
     },
   },
   {
@@ -61,7 +61,7 @@ const ARTISTS: ArtistCardProps[] = [
     links: {
       instagram: 'https://www.instagram.com/aaadrich',
       soundcloud: 'https://soundcloud.com/user-567965024',
-      presskit: '#',
+      presskit: 'https://drive.google.com/drive/folders/1iwvsl6tr-JnHfz5VUN248OpSMbMwdhFI',
     },
   },
   {
@@ -81,6 +81,7 @@ const ARTISTS: ArtistCardProps[] = [
     links: {
       instagram: 'https://www.instagram.com/wehlerisch_',
       soundcloud: 'https://soundcloud.com/wehlerisch',
+      presskit: 'https://drive.google.com/drive/folders/1lwmgV8tKfrtiNs73OCTswHYFo0P-8Y_l',
     },
   },
   {
@@ -91,6 +92,7 @@ const ARTISTS: ArtistCardProps[] = [
     links: {
       instagram: 'https://www.instagram.com/davide.connected',
       soundcloud: 'https://soundcloud.com/bouncinetti-davi-de',
+      presskit: 'https://drive.google.com/drive/folders/1pCy8d3jtNMaMdDdv4I-it1ItQJZ2VTnX?usp=sharing',
     },
   },
   {
@@ -101,6 +103,7 @@ const ARTISTS: ArtistCardProps[] = [
     links: {
       instagram: 'https://www.instagram.com/prod.senna',
       soundcloud: 'https://soundcloud.com/99senna',
+      presskit: 'https://drive.google.com/drive/folders/1pLlmVsF39RV1nMM1X2fGpkSHbxIKdW9U',
     },
   },
 ];
