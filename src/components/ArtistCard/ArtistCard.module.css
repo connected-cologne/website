@@ -95,7 +95,7 @@
      which is when the overlay opacity toggle switches — keeps the two in
      sync in both directions. */
   transition: transform 0.5s linear;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   outline: none;
 }
 

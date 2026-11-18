@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
-import Cursor from "@/components/Cursor";
 import RevealObserver from "@/components/RevealObserver";
 
 const bebasNeue = Bebas_Neue({
@@ -69,7 +68,6 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${ibmPlexMono.variable}`}
     >
       <body>
-        <Cursor />
         <Nav />
         <RevealObserver />
         {children}
