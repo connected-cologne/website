@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { formatDay, getEvents } from '@/sanity/lib/queries';
 
 export default async function Hero() {
-  const events = await getEvents();
-  const nextEvent = events[0];
+  const { upcoming } = await getEvents();
+  const nextEvent = upcoming[0];
 
   return (
     <section

@@ -51,17 +51,34 @@ export const eventType = defineType({
       description: 'Overrides everything — shows "Sold Out" only.',
       initialValue: false,
     }),
+    defineField({
+      name: 'recapUrl',
+      title: 'Recap link',
+      type: 'url',
+      description:
+        'Optional. Link to an Instagram post or reel from the night. Shown as a "Recap" button once the event is over. Leave empty to show nothing.',
+    }),
+    defineField({
+      name: 'showInPast',
+      title: 'Show in past events',
+      type: 'boolean',
+      description:
+        'Once the event is over (06:00 the morning after), it moves to "Past Events" on the website. Switch off to hide it there.',
+      initialValue: true,
+    }),
   ],
   preview: {
     select: {
       title: 'title',
       date: 'date',
       media: 'poster',
+      showInPast: 'showInPast',
     },
-    prepare({ title, date, media }) {
+    prepare({ title, date, media, showInPast }) {
+      const day = date ? new Date(date).toLocaleDateString('de-DE') : undefined;
       return {
         title,
-        subtitle: date ? new Date(date).toLocaleDateString('de-DE') : undefined,
+        subtitle: showInPast === false ? [day, 'hidden from past events'].filter(Boolean).join(' · ') : day,
         media,
       };
     },
