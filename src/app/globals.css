@@ -1809,6 +1809,45 @@ textarea {
   padding-top: 4px;
 }
 
+/* Nothing to show (e.g. past event without recap) — drop the empty grid row */
+.ev-actions:empty { display: none; }
+
+/* ---------- Past events ---------- */
+
+.past-events { margin-top: 72px; }
+
+.past-events-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 7vw, 48px);
+  letter-spacing: 2px;
+  line-height: 1;
+  color: var(--text-2);
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Toned down: grey posters and dimmer text */
+.event-row--past .ev-name   { color: var(--text-2); }
+.event-row--past .ev-lineup { color: var(--muted); }
+.event-row--past .ev-poster-img {
+  filter: grayscale(1) brightness(0.75);
+  transition: filter 0.3s ease;
+}
+/* Colour comes back on hover / keyboard focus (and the lightbox is always in colour) */
+.event-row--past .ev-poster:hover .ev-poster-img,
+.event-row--past .ev-poster:focus-visible .ev-poster-img {
+  filter: none;
+}
+
+/* Only the first five past events until "Show more" is clicked */
+.past-events-list:not([data-expanded]) > .event-row:nth-child(n + 6) { display: none; }
+
+.past-events-more {
+  display: flex;
+  justify-content: center;
+  padding-top: 32px;
+}
+
 /* Tablet — slightly larger poster */
 @media (min-width: 600px) {
   .event-row {
