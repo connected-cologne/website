@@ -21,6 +21,7 @@ const ARTISTS: ArtistCardProps[] = [
     links: {
       instagram: 'https://www.instagram.com/finnito.cologne/',
       soundcloud: 'https://on.soundcloud.com/4vYHu6TYVLBiUjc57',
+      presskit: 'https://drive.google.com/drive/folders/131xVlj9mqe8PVzKs3NrQU8nfa-KZAZJZ',
     },
   },
   {
@@ -51,6 +52,7 @@ const ARTISTS: ArtistCardProps[] = [
     bio: 'Pure forward momentum. Speedhouse kicks, Hardhouse muscle, built for the peak hour.',
     links: {
       instagram: 'https://www.instagram.com/zar.izar.i',
+      presskit: 'https://drive.google.com/drive/folders/1MQLQH7YTMJUoOS6Z88ffXXPNQ4C0flE9',
     },
   },
   {
