@@ -50,7 +50,7 @@ export default async function Hero() {
           style={{ color: 'var(--text-2)' }}
         >
           <strong style={{ color: 'var(--text)', fontWeight: 600 }}>
-            Techno connects people.
+            Everything is connected.
           </strong>
           <br />
           A collective of DJs from Cologne, connecting spaces and people
